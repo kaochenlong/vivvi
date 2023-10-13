@@ -1,15 +1,30 @@
 import http from "http"
 import color from "picocolors"
 import connect from "connect"
+import { WebSocketServer } from "ws"
 import { indexHTMLMiddleware } from "./middlewares.js"
 
-const { PORT_HTTP, PROJECT_NAME } = process.env
+const { PORT_HTTP, PROJECT_NAME, PORT_WS } = process.env
+
+const createWSServer = () => {
+  const server = new WebSocketServer({ port: PORT_WS })
+
+  server.on("connection", (ws) => {
+    console.log(color.green("WebSocket Connected"))
+
+    ws.on("message", (data) => {
+      console.log("Received: %s", data)
+    })
+  })
+}
 
 const middleware = connect()
 middleware.use(indexHTMLMiddleware)
 
 function createServer() {
   http.createServer(middleware).listen(PORT_HTTP)
+
+  createWSServer()
 
   console.log(
     `${color.red(PROJECT_NAME)} server ON! ${color.green(
