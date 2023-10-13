@@ -13,6 +13,7 @@
     "watch": "bun run --watch vivvi.js"
   },
   "dependencies": {
+    "connect": "^3.7.0",
     "picocolors": "^1.0.0"
   }
 }
