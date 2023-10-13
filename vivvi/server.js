@@ -12,6 +12,8 @@ const createWSServer = () => {
   server.on("connection", (ws) => {
     console.log(color.green("WebSocket Connected"))
 
+    ws.send(`${PROJECT_NAME} Connected!`)
+
     ws.on("message", (data) => {
       console.log("Received: %s", data)
     })
