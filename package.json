@@ -1,6 +1,7 @@
 {
   "name": "vivvi",
   "module": "vivvi.js",
+  "version": "0.0.1",
   "type": "module",
   "devDependencies": {
     "bun-types": "latest"

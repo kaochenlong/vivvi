@@ -1,11 +1,11 @@
 const ws = new WebSocket("ws://localhost:9527")
 
-ws.addEventListener("open", ({ target: s }) => {
-  s.addEventListener("message", ({ data }) => {
+ws.addEventListener("open", ({ target: socket }) => {
+  socket.addEventListener("message", ({ data }) => {
     console.log(data)
   })
 
-  s.addEventListener("close", () => {
+  socket.addEventListener("close", () => {
     console.log("Closed")
   })
 })
