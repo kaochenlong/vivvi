@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "connect": "^3.7.0",
+    "dayjs": "^1.11.10",
+    "lodash-es": "^4.17.21",
     "picocolors": "^1.0.0",
     "ws": "^8.14.2"
   }

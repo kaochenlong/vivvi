@@ -1,6 +1,26 @@
 import { getFilePathAndContentType } from "./utils.js"
 import path from "path"
 
+const ExcludeList = ["/vivvi/client.js"]
+const replaceImportMiddleware = async (req, res, next) => {
+  const { url } = req
+
+  if (url.endsWith(".js") && !ExcludeList.includes(url)) {
+    const { filePath, contentType } = getFilePathAndContentType(url)
+    const file = Bun.file(filePath)
+    let content = await file.text()
+
+    const regex = /from ['"](?!\.\/)([^'"]+)['"]/g
+
+    content = content.replace(regex, `from "./node_modules/$1"`)
+
+    res.writeHead(200, { "Content-Type": contentType })
+    res.end(content)
+  }
+
+  next()
+}
+
 const indexHTMLMiddleware = async (req, res) => {
   const { filePath, contentType } = getFilePathAndContentType(req.url)
 
@@ -26,4 +46,4 @@ const indexHTMLMiddleware = async (req, res) => {
   }
 }
 
-export { indexHTMLMiddleware }
+export { indexHTMLMiddleware, replaceImportMiddleware }
