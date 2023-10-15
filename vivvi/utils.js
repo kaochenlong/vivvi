@@ -37,4 +37,13 @@ function getEntryPoint(module) {
   return module
 }
 
-export { getFilePathAndContentType, getEntryPoint }
+const getRelativePath = (p = __dirname) => {
+  const rootPath = process.cwd()
+  return path.relative(p, rootPath)
+}
+
+const getDepModulePath = (module) => {
+  return path.join(getRelativePath(), "node_modules/.vivvi/deps", module)
+}
+
+export { getFilePathAndContentType, getEntryPoint, getDepModulePath }

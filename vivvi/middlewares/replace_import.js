@@ -1,4 +1,8 @@
-import { getFilePathAndContentType, getEntryPoint } from "../utils.js"
+import {
+  getFilePathAndContentType,
+  getEntryPoint,
+  getDepModulePath,
+} from "../utils.js"
 
 const ExcludeList = ["/vivvi/client.js"]
 const replaceImportMiddleware = async (req, res, next) => {
@@ -29,7 +33,7 @@ const replaceImportMiddleware = async (req, res, next) => {
 
     content = content.replace(regex, (_match, capture) => {
       const entryPoint = getEntryPoint(capture)
-      return `from "./node_modules/.vivvi/deps/${entryPoint}"`
+      return `from "${getDepModulePath(entryPoint)}"`
     })
 
     res.writeHead(200, { "Content-Type": contentType })
