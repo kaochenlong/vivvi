@@ -1,9 +1,15 @@
 import has from "lodash-es/has.js"
 import join from "lodash-es/join.js"
-import d from "dayjs"
+import day from "dayjs"
 import { echo } from "./hi.js"
 
-echo("hihihi")
+echo("Vite 原始碼解讀 :)")
 console.log(has)
 console.log(join)
-console.log(d)
+console.log(day)
+
+// update timer
+const timer = document.querySelector("#timer")
+if (timer) {
+  timer.textContent = Date.now()
+}
